@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { resourceColors } from '$lib/resources/ResourceColors';
+	import { resourceDurability } from '$lib/resources/ResourceDurability';
 	import type { Tool } from '$lib/types/tools';
 	import { toolIcons } from './ToolIcons';
 
@@ -18,7 +19,12 @@
 <div class="tool-display is-rounded nes-container {resourceColors[tool.material]}">
 	<img src={toolIcons[tool.type]} alt={tool.type} class="tool-icon" />
 	<p>Material: {tool.material}</p>
-	<progress class="nes-progress {barColor()}" value={tool.durability} max="100"> </progress>
+	<progress
+		class="nes-progress {barColor()}"
+		value={tool.durability}
+		max={resourceDurability[tool.material]}
+	>
+	</progress>
 </div>
 
 <style>

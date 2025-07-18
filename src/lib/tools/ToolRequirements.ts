@@ -1,5 +1,8 @@
 import type { Resource } from "$lib/types/resources";
-import type { Tool } from "$lib/types/tools";
+
+import { possibleResources, resources } from "$lib/resources/Resources.svelte";
+import { get } from "svelte/store";
+import { combineNumericObjects } from "$lib/utils/utils";
 
 const toolHeadResourceRequirements: Record<Resource, number> = {
     wood: 5,
@@ -9,9 +12,20 @@ const toolHeadResourceRequirements: Record<Resource, number> = {
     diamond: 50,
 }
 
-export function getToolRequirements(tool: Tool) {
-    const toolHeadRequirements = { [tool.material]: toolHeadResourceRequirements[tool.material] };
-    const toolRodRequirement = { wood: tool.material === "wood" ? 2 : 5 };
-    return { ...toolHeadRequirements, ...toolRodRequirement };
+export function getToolRequirements(material: Resource) {
+    const toolHeadRequirements = { [material]: toolHeadResourceRequirements[material] };
+    const toolRodRequirement = { wood: material === "wood" ? 2 : 5 };
+
+    return combineNumericObjects([toolHeadRequirements, toolRodRequirement]);
+
+}
+
+export function canCraftTool(material: Resource): boolean {
+    const requirements = getToolRequirements(material);
+    return Object.entries(requirements).every(([resource, amount]) => (get(resources)[resource as Resource] || 0) >= amount);
+}
+
+export function canCraftAnyTool(): boolean {
+    return possibleResources.some(material => canCraftTool(material as Resource));
 }
 

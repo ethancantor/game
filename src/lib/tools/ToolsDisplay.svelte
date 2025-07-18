@@ -1,8 +1,8 @@
 <script lang="ts">
-	import { possibleTools } from '$lib/types/tools';
 	import ToolCrafterButton from './ToolCrafterButton.svelte';
 	import ToolDisplay from './ToolDisplay.svelte';
 	import { tools } from './Tools.svelte';
+	import { possibleTools } from './Tools.svelte';
 
 	let allTools = $derived(
 		possibleTools.map((tool) => ({ foundTool: $tools.find((t) => t.type === tool), tool }))

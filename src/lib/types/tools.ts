@@ -1,14 +1,12 @@
+import type { possibleTools } from "$lib/tools/Tools.svelte";
 import type { Resource } from "./resources";
 
-export type ToolType = "axe" | "pickaxe";
+export type ToolType = typeof possibleTools[number] | 'hand';
 
 export type Tool = {
     type: ToolType;
     durability: number;
     material: Resource;
 }
-
-export const possibleTools: ToolType[] = ["axe", "pickaxe"];
-
 
 // images found at https://www.svgrepo.com/collection/memory-pixel-interface-icons
