@@ -1,5 +1,5 @@
 import { writable } from "svelte/store";
-const fps = 10;
+const fps = 5;
 export const MAX_TICK = (2 ** 31) - 1;
 
 export const running = writable(true);

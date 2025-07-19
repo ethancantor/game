@@ -1,43 +1,67 @@
-import { writable } from "svelte/store";
 import type { Tool, ToolType } from "$lib/types/tools";
 import type { Resource } from "$lib/types/resources";
 import { resourceDurability } from "$lib/resources/ResourceDurability";
-import { canCraftTool, getToolRequirements } from "./ToolRequirements";
-import { useResource } from "$lib/resources/Resources.svelte";
+import { ToolCrafter } from "./ToolCrafter.";
+import { Resources } from "$lib/resources/Resources.svelte";
+
 
 export const possibleTools = ["axe", "pickaxe"] as const;
 
-export const tools = writable<Tool[]>([]);
+class ToolCollection {
+    #toolList: Tool[] = $state([]);
 
-export function craftTool(type: ToolType, material: Resource) {
-    const newTool: Tool = {
-        type,
-        material,
-        durability: resourceDurability[material]
-    }
-
-    if (!canCraftTool(material)) {
-        throw new Error(`Cannot craft ${type} with ${material}`);
-    }
-    const cost = getToolRequirements(material);
-    for (const [resource, amount] of Object.entries(cost)) {
-        useResource(resource as Resource, amount);
-    }
-
-    tools.update((currentTools) => [...currentTools, newTool]);
-}
-
-export function useTool(toolType: ToolType) {
-    tools.update((currentTools) => {
-        const index = currentTools.findIndex(t => t.type === toolType);
-        if (index !== -1) {
-            if (currentTools[index].durability <= 10) {
-                currentTools.splice(index, 1);
-            } else {
-                currentTools[index].durability -= 10;
-            }
+    public craftTool(type: ToolType, material: Resource) {
+        const newTool: Tool = {
+            type,
+            material,
+            durability: resourceDurability[material]
         }
 
-        return currentTools;
-    });
+        if (!ToolCrafter.canCraftTool(material)) {
+            throw new Error(`Cannot craft ${type} with ${material}`);
+        }
+        const cost = ToolCrafter.getToolRequirements(material);
+        for (const [resource, amount] of Object.entries(cost)) {
+            Resources.useResource(resource as Resource, amount);
+        }
+
+        this.#toolList = [...this.#toolList, newTool];
+    }
+
+    public useTool(toolType: ToolType) {
+        if (toolType === 'hand') {
+            return; // Hand tools don't have durability
+        }
+
+        const foundTool = this.getTool(toolType);
+        if (!foundTool) {
+            throw new Error(`Tool of type ${toolType} not found`);
+        }
+
+        if (foundTool.durability <= 10) {
+            this.#toolList = this.#toolList.filter(tool => tool.type !== toolType);
+            return;
+        }
+
+        this.#toolList = this.#toolList.map(tool => {
+            if (tool.type === toolType) {
+                return { ...tool, durability: tool.durability - 10 };
+            }
+            return tool;
+        });
+    }
+
+    public hasTool(toolType: ToolType): boolean {
+        return toolType === 'hand' || this.#toolList.some(tool => tool.type === toolType);
+    }
+
+    public getTool(toolType: ToolType): Tool | undefined {
+        return this.#toolList.find(tool => tool.type === toolType);
+    }
+
+    public getAllTools(): Tool[] {
+        return this.#toolList;
+    }
 }
+
+export const Tools = new ToolCollection();

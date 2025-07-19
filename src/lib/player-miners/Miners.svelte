@@ -11,7 +11,7 @@
 </script>
 
 <div class="nes-container is-rounded">
-	<h2>Actions</h2>
+	<h2>Player Actions</h2>
 	<div class="button-container">
 		<MinerButton
 			resource="wood"

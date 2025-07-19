@@ -1,10 +1,10 @@
 <script lang="ts">
 	import { fade } from 'svelte/transition';
-	import { addResource, resources } from '../resources/Resources.svelte';
 	import type { ResourceColor, Resource } from '../types/resources';
-	import { tools, useTool } from '$lib/tools/Tools.svelte';
 	import { resourceTools } from '$lib/resources/ResourceTools';
 	import type { ToolType } from '$lib/types/tools';
+	import { Tools } from '$lib/tools/Tools.svelte';
+	import { Resources } from '$lib/resources/Resources.svelte';
 
 	const {
 		resource,
@@ -26,30 +26,26 @@
 
 	let allThresholdsMet = $derived(() =>
 		Object.keys(showThreshold).every(
-			(key) => showThreshold[key as Resource]! <= ($resources[key as Resource] ?? 0)
+			(key) => showThreshold[key as Resource]! <= (Resources.getResources()[key as Resource] ?? 0)
 		)
 	);
 
-	let hasTool = $derived(
-		() => toolToMine === 'hand' || $tools.some((tool) => tool.type === toolToMine)
-	);
-
 	function handleClick() {
-		if (!hasTool()) {
+		if (!Tools.hasTool(toolToMine)) {
 			return;
 		}
-		addResource(resource, amount);
-		useTool(toolToMine);
+		Tools.useTool(toolToMine);
+		Resources.addResource(resource, amount);
 	}
 </script>
 
-{#if allThresholdsMet() && hasTool()}
+{#if allThresholdsMet() && Tools.hasTool(toolToMine)}
 	<button
-		class="nes-btn {!hasTool() ? 'is-disabled' : color}"
+		class="nes-btn {!Tools.hasTool(toolToMine) ? 'is-disabled' : color}"
 		onclick={handleClick}
 		in:fade
 		out:fade
-		disabled={!hasTool()}
+		disabled={!Tools.hasTool(toolToMine)}
 	>
 		{label}
 	</button>

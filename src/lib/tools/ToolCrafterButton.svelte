@@ -1,25 +1,16 @@
 <script lang="ts">
-	import { possibleResources, resources } from '$lib/resources/Resources.svelte';
-	import type { Resource, ResourceColor } from '$lib/types/resources';
+	import type { ResourceColor } from '$lib/types/resources';
 	import type { ToolType } from '$lib/types/tools';
-	import { craftBestTool } from './ToolCrafter';
+	import { ToolCrafter } from './ToolCrafter.';
 	import { toolIcons } from './ToolIcons';
-	import { canCraftAnyTool, canCraftTool, getToolRequirements } from './ToolRequirements';
 
 	const { toolName, color }: { toolName: ToolType; color: ResourceColor } = $props();
 
 	function handleClick() {
-		craftBestTool(toolName);
+		ToolCrafter.craftBestTool(toolName);
 	}
 
-	let disabled = $derived(
-		() =>
-			!possibleResources.some((material) =>
-				Object.entries(getToolRequirements(material as Resource)).every(
-					([resource, amount]) => ($resources[resource as Resource] || 0) >= amount
-				)
-			)
-	);
+	let disabled = $derived(() => !ToolCrafter.getBestAvailableResource());
 </script>
 
 <button
@@ -30,6 +21,7 @@
 >
 	<img src={toolIcons[toolName]} alt={toolName} class="tool-icon" />
 	<span class="tool-label">Craft {toolName}</span>
+	<span class="tool-sub-label">{ToolCrafter.getBestAvailableResource()}</span>
 </button>
 
 <style>
@@ -48,5 +40,10 @@
 	.tool-label {
 		margin-left: 0.5rem;
 		font-size: 12px;
+	}
+
+	.tool-sub-label {
+		font-size: 10px;
+		color: var(--color-text-secondary);
 	}
 </style>

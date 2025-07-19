@@ -1,6 +1,7 @@
 <script>
+	import AutoMiners from '$lib/auto-miners/AutoMinersDisplay.svelte';
 	import GameLoop from '$lib/GameLoop.svelte';
-	import Miners from '$lib/miners/Miners.svelte';
+	import Miners from '$lib/player-miners/Miners.svelte';
 	import ResourceDisplay from '$lib/resources/ResourceDisplay.svelte';
 	import ToolsDisplay from '$lib/tools/ToolsDisplay.svelte';
 </script>
@@ -8,8 +9,11 @@
 <GameLoop />
 
 <div class="nes-container is-rounded">
-	<Miners />
-	<div class="status-container">
+	<div class="vert-container">
+		<Miners />
+		<AutoMiners />
+	</div>
+	<div class="vert-container">
 		<ResourceDisplay />
 		<ToolsDisplay />
 	</div>
@@ -24,7 +28,7 @@
 		justify-content: space-between;
 	}
 
-	.status-container {
+	.vert-container {
 		display: flex;
 		flex-direction: column;
 		gap: 1rem;

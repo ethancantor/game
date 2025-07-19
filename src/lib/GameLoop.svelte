@@ -7,6 +7,9 @@
 		tick,
 		timestep
 	} from '$lib/GameLoopWritables.svelte';
+	import { AutoMiners } from './auto-miners/AutoMiners.svelte';
+
+	let lastTick = $state(0);
 
 	function loop(currentTime: number) {
 		if (!$running) return;
@@ -16,11 +19,18 @@
 		$lastTime = currentTime;
 
 		while ($accumulator >= timestep) {
-			$tick = ($tick + 1) % MAX_TICK; // update logic
+			$tick = ($tick + 1) % MAX_TICK;
 			$accumulator = $accumulator - timestep;
 		}
 
 		requestAnimationFrame(loop);
+
+		// do something at the FPS of the game loop
+		if (lastTick !== $tick) {
+			AutoMiners.handleMine();
+		}
+
+		lastTick = $tick;
 	}
 
 	$effect(() => {
