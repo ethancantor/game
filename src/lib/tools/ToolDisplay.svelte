@@ -1,8 +1,7 @@
 <script lang="ts">
-	import { resourceColors } from '$lib/resources/ResourceColors';
-	import { resourceDurability } from '$lib/resources/ResourceDurability';
+	import { resourceColors, resourceDurability } from '$lib/resources/ResourceProperties';
 	import type { Tool } from '$lib/types/tools';
-	import { toolIcons } from './ToolIcons';
+	import { toolIcons } from './ToolProperties';
 
 	let { tool }: { tool: Tool } = $props();
 

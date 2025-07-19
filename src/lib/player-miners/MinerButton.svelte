@@ -1,10 +1,10 @@
 <script lang="ts">
 	import { fade } from 'svelte/transition';
 	import type { ResourceColor, Resource } from '../types/resources';
-	import { resourceTools } from '$lib/resources/ResourceTools';
 	import type { ToolType } from '$lib/types/tools';
 	import { Tools } from '$lib/tools/Tools.svelte';
 	import { Resources } from '$lib/resources/Resources.svelte';
+	import { resourceTools } from '$lib/resources/ResourceProperties';
 
 	const {
 		resource,

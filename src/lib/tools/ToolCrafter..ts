@@ -1,4 +1,5 @@
-import { possibleResources, Resources } from "$lib/resources/Resources.svelte";
+import { possibleResources } from "$lib/resources/ResourceProperties";
+import { Resources } from "$lib/resources/Resources.svelte";
 import type { FullResourceStore, Resource } from "$lib/types/resources";
 import type { ToolType } from "$lib/types/tools";
 import { combineNumericObjects } from "$lib/utils/utils";

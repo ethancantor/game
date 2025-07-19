@@ -1,6 +1,6 @@
 <script lang="ts">
 	import type { Resource } from '$lib/types/resources';
-	import { resourceColors } from './ResourceColors';
+	import { resourceColors } from './ResourceProperties';
 	import { Resources } from './Resources.svelte';
 </script>
 

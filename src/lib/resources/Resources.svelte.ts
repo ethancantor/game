@@ -1,7 +1,5 @@
 import type { Resource } from "../types/resources";
 
-export const possibleResources = ["wood", "stone", "iron", "gold", "diamond"] as const;
-
 class ResourceStorage {
     #resources: Partial<Record<Resource, number>> = $state({})
 

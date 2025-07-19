@@ -1,7 +1,8 @@
 <script lang="ts">
 	import ToolCrafterButton from './ToolCrafterButton.svelte';
 	import ToolDisplay from './ToolDisplay.svelte';
-	import { possibleTools, Tools } from './Tools.svelte';
+	import { possibleTools } from './ToolProperties';
+	import { Tools } from './Tools.svelte';
 </script>
 
 <div class="button-container">

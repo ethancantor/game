@@ -1,4 +1,4 @@
-import type { possibleTools } from "$lib/tools/Tools.svelte";
+import type { possibleTools } from "$lib/tools/ToolProperties";
 import type { Resource } from "./resources";
 
 export type ToolType = typeof possibleTools[number] | 'hand';

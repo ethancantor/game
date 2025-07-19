@@ -1,11 +1,13 @@
 <script lang="ts">
 	import MinerButton from './MinerButton.svelte';
-	import { resourceColors } from '../resources/ResourceColors';
-	import { resourceLabels } from '../resources/ResourceLabels';
-	import { resourceThresholds } from '../resources/ResourceThresholds';
 	import type { Resource } from '../types/resources';
-	import { toolCollectionAmount } from '$lib/tools/ToolCollectionAmount';
-	import { resourceTools } from '$lib/resources/ResourceTools';
+	import { toolCollectionAmount } from '$lib/tools/ToolProperties';
+	import {
+		resourceColors,
+		resourceLabels,
+		resourceThresholds,
+		resourceTools
+	} from '$lib/resources/ResourceProperties';
 
 	const keys = Object.keys(resourceThresholds) as Resource[];
 </script>

@@ -1,11 +1,10 @@
 import type { Tool, ToolType } from "$lib/types/tools";
 import type { Resource } from "$lib/types/resources";
-import { resourceDurability } from "$lib/resources/ResourceDurability";
 import { ToolCrafter } from "./ToolCrafter.";
 import { Resources } from "$lib/resources/Resources.svelte";
+import { resourceDurability } from "$lib/resources/ResourceProperties";
 
 
-export const possibleTools = ["axe", "pickaxe"] as const;
 
 class ToolCollection {
     #toolList: Tool[] = $state([]);

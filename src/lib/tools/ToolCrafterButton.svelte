@@ -2,7 +2,7 @@
 	import type { ResourceColor } from '$lib/types/resources';
 	import type { ToolType } from '$lib/types/tools';
 	import { ToolCrafter } from './ToolCrafter.';
-	import { toolIcons } from './ToolIcons';
+	import { toolIcons } from './ToolProperties';
 
 	const { toolName, color }: { toolName: ToolType; color: ResourceColor } = $props();
 
