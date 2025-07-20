@@ -1,26 +1,6 @@
-import { ChatLogEvent, type ChatLogInfoType } from "$lib/types/chatlogs";
+import { ChatLogEvent } from "$lib/types/chatlogs";
+import { chatLogMessageReplace, chatLogMessages } from "./ChatLogProperties";
 
-class ChatLogObjectFactory {
-
-    createChatLogObject(event: ChatLogEvent, info: ChatLogInfoType) {
-        switch (event) {
-            case ChatLogEvent.AchievementUnlocked:
-                return {
-                    type: ChatLogEvent.AchievementUnlocked,
-                    achievement: info.achievement!
-                };
-            case ChatLogEvent.MinerHired:
-                return {
-                    type: ChatLogEvent.MinerHired,
-                    miner: info.miner!
-                };
-            case ChatLogEvent.MinerExpired:
-                return {
-                    type: ChatLogEvent.MinerExpired,
-                    miner: info.miner!
-                };
-        }
-    }
+export function generateChatLogMessage(event: ChatLogEvent, replacement: string = ''): string {
+    return chatLogMessages[event].replaceAll(chatLogMessageReplace[event] || '', replacement);
 }
-
-export const chatLogObjectFactory = new ChatLogObjectFactory();

@@ -1,6 +1,6 @@
-<script>
-	import AchievementsDisplay from '$lib/achievements/AchievementsDisplay.svelte';
+<script lang="ts">
 	import AutoMiners from '$lib/auto-miners/AutoMinersDisplay.svelte';
+	import ChatLogDisplay from '$lib/chat-log/ChatLogDisplay.svelte';
 	import GameLoop from '$lib/GameLoop.svelte';
 	import Miners from '$lib/player-miners/Miners.svelte';
 	import ResourceDisplay from '$lib/resources/ResourceDisplay.svelte';
@@ -15,9 +15,10 @@
 		<AutoMiners />
 	</div>
 	<div class="vert-container">
+		<ChatLogDisplay />
 		<ResourceDisplay />
 		<ToolsDisplay />
-		<AchievementsDisplay />
+		<!-- <AchievementsDisplay /> -->
 	</div>
 </div>
 

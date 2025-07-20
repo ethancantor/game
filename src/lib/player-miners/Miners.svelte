@@ -8,6 +8,7 @@
 		resourceThresholds,
 		resourceTools
 	} from '$lib/resources/ResourceProperties';
+	import { Achievement } from '$lib/types/achievements';
 
 	const keys = Object.keys(resourceThresholds) as Resource[];
 </script>
@@ -22,6 +23,7 @@
 			tool="hand"
 			showThreshold={{}}
 			amount={toolCollectionAmount.hand}
+			achievement={Achievement.CollectTwig}
 		/>
 		{#each keys as resource}
 			<MinerButton

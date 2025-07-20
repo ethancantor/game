@@ -1,4 +1,6 @@
 <script lang="ts">
+	import { Achievements } from '$lib/achievements/Achievements.svelte';
+	import { Achievement } from '$lib/types/achievements';
 	import type { ResourceColor } from '$lib/types/resources';
 	import type { ToolType } from '$lib/types/tools';
 	import { ToolCrafter } from './ToolCrafter.';
@@ -7,7 +9,10 @@
 	const { toolName, color }: { toolName: ToolType; color: ResourceColor } = $props();
 
 	function handleClick() {
-		ToolCrafter.craftBestTool(toolName);
+		const didCraft = ToolCrafter.craftBestTool(toolName);
+		if (didCraft) {
+			Achievements.addAchievement(Achievement.CraftedFirstTool);
+		}
 	}
 
 	let disabled = $derived(() => !ToolCrafter.getBestAvailableResource());

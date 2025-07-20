@@ -5,6 +5,8 @@
 	import { Tools } from '$lib/tools/Tools.svelte';
 	import { Resources } from '$lib/resources/Resources.svelte';
 	import { resourceTools } from '$lib/resources/ResourceProperties';
+	import type { Achievement } from '$lib/types/achievements';
+	import { Achievements } from '$lib/achievements/Achievements.svelte';
 
 	const {
 		resource,
@@ -12,7 +14,8 @@
 		color,
 		showThreshold,
 		tool,
-		amount
+		amount,
+		achievement
 	}: {
 		resource: Resource;
 		label: string;
@@ -20,6 +23,7 @@
 		tool?: ToolType;
 		showThreshold: Partial<Record<Resource, number>>;
 		amount: number;
+		achievement?: Achievement;
 	} = $props();
 
 	const toolToMine = tool || resourceTools[resource];
@@ -36,6 +40,9 @@
 		}
 		Tools.useTool(toolToMine);
 		Resources.addResource(resource, amount);
+		if (achievement) {
+			Achievements.addAchievement(achievement);
+		}
 	}
 </script>
 

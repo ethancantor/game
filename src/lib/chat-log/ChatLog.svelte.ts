@@ -1,15 +1,15 @@
-import type { ChatLogEventBase } from "$lib/types/chatlogs";
-
+import type { ChatLogEvent } from "$lib/types/chatlogs";
+import { generateChatLogMessage } from "./ChatLogObjectFactory";
 
 class ChatLogStorage {
     #messages: string[] = $state([]);
 
-    addMessage(event: ChatLogEventBase): void {
-        this.#messages.push(event.message);
+    addMessage(event: ChatLogEvent, replacement = ''): void {
+        this.#messages.push(generateChatLogMessage(event, replacement));
     }
 
-    getMessages(): string[] {
-        return this.#messages;
+    getMessages(): { message: string; index: number }[] {
+        return this.#messages.map((message, index) => ({ message, index }));
     }
 }
 

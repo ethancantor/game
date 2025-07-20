@@ -22,11 +22,14 @@ export class ToolCrafterClass {
         diamond: 20,
     }
 
-    public craftBestTool(toolType: ToolType) {
+    public craftBestTool(toolType: ToolType): boolean {
         const bestResource = this.getBestAvailableResource();
         if (bestResource) {
-            return Tools.craftTool(toolType, bestResource);
+            Tools.craftTool(toolType, bestResource);
+            return true;
         }
+
+        return false;
     }
 
     public getBestAvailableResource(): Resource | undefined {
