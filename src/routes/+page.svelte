@@ -1,4 +1,5 @@
 <script>
+	import AchievementsDisplay from '$lib/achievements/AchievementsDisplay.svelte';
 	import AutoMiners from '$lib/auto-miners/AutoMinersDisplay.svelte';
 	import GameLoop from '$lib/GameLoop.svelte';
 	import Miners from '$lib/player-miners/Miners.svelte';
@@ -16,6 +17,7 @@
 	<div class="vert-container">
 		<ResourceDisplay />
 		<ToolsDisplay />
+		<AchievementsDisplay />
 	</div>
 </div>
 

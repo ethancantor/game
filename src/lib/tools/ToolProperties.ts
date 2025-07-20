@@ -1,9 +1,9 @@
 import type { ToolType } from "$lib/types/tools";
 
 export const toolIcons = {
-    axe: "/tools/axe.svg",
-    pickaxe: "/tools/pickaxe.svg",
-    battleaxe: "/tools/battleaxe.svg",
+    axe: "/axe.svg",
+    pickaxe: "/pickaxe.svg",
+    battleaxe: "/battleaxe.svg",
     hand: ''
 }
 
