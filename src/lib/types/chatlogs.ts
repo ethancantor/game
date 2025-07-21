@@ -3,6 +3,7 @@ export enum ChatLogEvent {
     MinerHired = "miner-hired",
     MinerExpired = "miner-expired",
     ToolBroken = "tool-broken",
+    ToolCrafted = "tool-crafted",
     ResourceUsed = "resource-used",
 }
 

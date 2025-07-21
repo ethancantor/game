@@ -24,6 +24,8 @@ class ToolCollection {
             Resources.useResource(resource as Resource, amount);
         }
 
+        ChatLog.addMessage(ChatLogEvent.ToolCrafted, `${material} ${type}`);
+
         this.#toolList = [...this.#toolList, newTool];
     }
 

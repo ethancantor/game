@@ -26,6 +26,7 @@ export class ToolCrafterClass {
         const bestResource = this.getBestAvailableResource();
         if (bestResource) {
             Tools.craftTool(toolType, bestResource);
+
             return true;
         }
 
