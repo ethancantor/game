@@ -1,9 +1,16 @@
+import { gameLoopPublisher } from "$lib/game-loop/GameLoopPublisher";
 import { Resources } from "$lib/resources/Resources.svelte";
 import type { AutoMiner } from "$lib/types/autominer";
 import { autoMinerResources } from "./AutoMinerProperties";
 
 class AutoMinerStorage {
     #miners: Partial<Record<AutoMiner, number>> = $state({});
+
+    constructor() {
+        gameLoopPublisher.subscribe(() => {
+            this.handleMine();
+        })
+    }
 
     hireMiner(miner: AutoMiner, amount: number) {
         const currentAmount = this.#miners[miner] || 0;

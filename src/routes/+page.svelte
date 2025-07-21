@@ -1,7 +1,7 @@
 <script lang="ts">
 	import AutoMiners from '$lib/auto-miners/AutoMinersDisplay.svelte';
 	import ChatLogDisplay from '$lib/chat-log/ChatLogDisplay.svelte';
-	import GameLoop from '$lib/GameLoop.svelte';
+	import GameLoop from '$lib/game-loop/GameLoop.svelte';
 	import Miners from '$lib/player-miners/Miners.svelte';
 	import ResourceDisplay from '$lib/resources/ResourceDisplay.svelte';
 	import ToolsDisplay from '$lib/tools/ToolsDisplay.svelte';

@@ -6,8 +6,8 @@
 		running,
 		tick,
 		timestep
-	} from '$lib/GameLoopWritables.svelte';
-	import { AutoMiners } from './auto-miners/AutoMiners.svelte';
+	} from './GameLoopWritables.svelte';
+	import { gameLoopPublisher } from './GameLoopPublisher';
 
 	let lastTick = $state(0);
 
@@ -27,7 +27,7 @@
 
 		// do something at the FPS of the game loop
 		if (lastTick !== $tick) {
-			AutoMiners.handleMine();
+			gameLoopPublisher.publish();
 		}
 
 		lastTick = $tick;
