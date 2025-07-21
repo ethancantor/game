@@ -2,13 +2,27 @@
 	import { fade } from 'svelte/transition';
 	import { ChatLog } from './ChatLog.svelte';
 	import { flip } from 'svelte/animate';
+	import { ChatLogEvent } from '$lib/types/chatlogs';
+	import { chatLogMessageColors } from './ChatLogProperties';
 </script>
+
+{#snippet chatLogMessage(message: string, chatLogEvent: ChatLogEvent)}
+	{#each message.split('__') as msg, index (index)}
+		{#if index === 1}
+			<span class="nes-text {chatLogMessageColors[chatLogEvent]}">{msg}</span>
+		{:else}
+			<span class="nes-text">{msg}</span>
+		{/if}
+	{/each}
+{/snippet}
 
 <div class="nes-container is-dark with-title is-rounded">
 	<p class="title">Chat Log</p>
 	<div class="chat-log-display">
 		{#each ChatLog.getMessages().slice(-30) as message (message.index)}
-			<div class="chat-log-message" animate:flip in:fade>{message.message}</div>
+			<div class="chat-log-message" animate:flip in:fade>
+				{@render chatLogMessage(message.message, message.event)}
+			</div>
 		{/each}
 	</div>
 </div>

@@ -6,16 +6,24 @@
 	import { ToolCrafter } from './ToolCrafter.';
 	import { toolIcons } from './ToolProperties';
 
-	const { toolName, color }: { toolName: ToolType; color: ResourceColor } = $props();
+	const {
+		toolName,
+		color,
+		achievementNeededs
+	}: { toolName: ToolType; color: ResourceColor; achievementNeededs?: Achievement[] } = $props();
 
 	function handleClick() {
 		const didCraft = ToolCrafter.craftBestTool(toolName);
-		if (didCraft) {
-			Achievements.addAchievement(Achievement.CraftedFirstTool);
+		if (didCraft && toolName === 'axe') {
+			Achievements.unlockAchievement(Achievement.CraftedFirstAxe);
 		}
 	}
 
-	let disabled = $derived(() => !ToolCrafter.getBestAvailableResource());
+	let disabled = $derived(
+		() =>
+			!ToolCrafter.getBestAvailableResource() ||
+			(achievementNeededs && !achievementNeededs.every((ach) => Achievements.hasAchievement(ach)))
+	);
 </script>
 
 <button

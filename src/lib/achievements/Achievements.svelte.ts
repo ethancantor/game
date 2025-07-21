@@ -11,7 +11,7 @@ class AchievementStorage {
         return this.#achievements;
     }
 
-    addAchievement(achievement: Achievement): void {
+    unlockAchievement(achievement: Achievement): void {
         if (!this.hasAchievement(achievement)) {
             ChatLog.addMessage(ChatLogEvent.AchievementUnlocked, achievementDisplayNames[achievement]);
             this.#achievements.push(achievement);

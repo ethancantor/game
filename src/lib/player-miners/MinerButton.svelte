@@ -12,27 +12,26 @@
 		resource,
 		label,
 		color,
-		showThreshold,
 		tool,
 		amount,
-		achievement
+		achievement,
+		achievementNeededs
 	}: {
 		resource: Resource;
 		label: string;
 		color: ResourceColor;
 		tool?: ToolType;
-		showThreshold: Partial<Record<Resource, number>>;
 		amount: number;
 		achievement?: Achievement;
+		achievementNeededs?: Achievement[];
 	} = $props();
 
 	const toolToMine = tool || resourceTools[resource];
 
-	let allThresholdsMet = $derived(() =>
-		Object.keys(showThreshold).every(
-			(key) => showThreshold[key as Resource]! <= (Resources.getResources()[key as Resource] ?? 0)
-		)
-	);
+	let allThresholdsMet = $derived(() => {
+		if (!achievementNeededs) return true;
+		return achievementNeededs.every((ach) => Achievements.hasAchievement(ach));
+	});
 
 	function handleClick() {
 		if (!Tools.hasTool(toolToMine)) {
@@ -41,7 +40,7 @@
 		Tools.useTool(toolToMine);
 		Resources.addResource(resource, amount);
 		if (achievement) {
-			Achievements.addAchievement(achievement);
+			Achievements.unlockAchievement(achievement);
 		}
 	}
 </script>

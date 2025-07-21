@@ -1,5 +1,6 @@
+import { Achievement } from "$lib/types/achievements";
 import type { ToolType } from "$lib/types/tools";
-import type { ResourceColor, Resource } from "../types/resources";
+import type { ResourceColor, Resource, ResourceAchievementThreshold } from "../types/resources";
 
 export const possibleResources = ["wood", "stone", "iron", "gold", "diamond"] as const;
 
@@ -27,14 +28,6 @@ export const resourceLabels: Record<Resource, string> = {
     diamond: 'Mine Diamond',
 };
 
-export const resourceThresholds: Record<Resource, Partial<Record<Resource, number>>> = {
-    wood: {},
-    stone: { wood: 5 },
-    iron: { stone: 5 },
-    gold: { iron: 5 },
-    diamond: { gold: 5 },
-};
-
 
 export const resourceTools: Record<Resource, ToolType> = {
     wood: "axe",
@@ -42,4 +35,12 @@ export const resourceTools: Record<Resource, ToolType> = {
     iron: "pickaxe",
     gold: "pickaxe",
     diamond: "pickaxe",
+}
+
+export const resourceAchievementThresholds: Record<Resource, ResourceAchievementThreshold[]> = {
+    wood: [{ achievement: Achievement.Collect100Wood, threshold: 100 }],
+    stone: [{ achievement: Achievement.Collect100Stone, threshold: 100 }],
+    iron: [],
+    gold: [],
+    diamond: []
 }

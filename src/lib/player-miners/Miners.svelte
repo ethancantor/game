@@ -3,14 +3,13 @@
 	import type { Resource } from '../types/resources';
 	import { toolCollectionAmount } from '$lib/tools/ToolProperties';
 	import {
+		possibleResources,
 		resourceColors,
 		resourceLabels,
-		resourceThresholds,
 		resourceTools
 	} from '$lib/resources/ResourceProperties';
 	import { Achievement } from '$lib/types/achievements';
-
-	const keys = Object.keys(resourceThresholds) as Resource[];
+	import { achievementsNeededToUnlockResources } from './MinerProperties';
 </script>
 
 <div class="nes-container is-rounded">
@@ -21,17 +20,17 @@
 			label="Collect Twigs"
 			color={resourceColors.wood}
 			tool="hand"
-			showThreshold={{}}
 			amount={toolCollectionAmount.hand}
 			achievement={Achievement.CollectTwig}
 		/>
-		{#each keys as resource}
+		{#each possibleResources as resource}
 			<MinerButton
 				{resource}
 				label={resourceLabels[resource]}
 				color={resourceColors[resource]}
-				showThreshold={resourceThresholds[resource]}
 				amount={toolCollectionAmount[resourceTools[resource]] || toolCollectionAmount.hand}
+				achievement={resource === 'wood' ? Achievement.ChoppedFirstTree : undefined}
+				achievementNeededs={achievementsNeededToUnlockResources[resource]}
 			/>
 		{/each}
 	</div>

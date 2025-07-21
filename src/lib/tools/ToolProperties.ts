@@ -1,4 +1,7 @@
+import { Achievement } from "$lib/types/achievements";
 import type { ToolType } from "$lib/types/tools";
+
+export const possibleTools = ["axe", "pickaxe"] as const;
 
 export const toolIcons = {
     axe: "/axe.svg",
@@ -7,11 +10,15 @@ export const toolIcons = {
     hand: ''
 }
 
-
 export const toolCollectionAmount: Record<ToolType, number> = {
     axe: 2,
     pickaxe: 1,
     hand: 1,
 }
 
-export const possibleTools = ["axe", "pickaxe"] as const;
+
+export const achievementsNeededToUnlock: Record<ToolType, Achievement[]> = {
+    axe: [Achievement.CollectTwig],
+    pickaxe: [Achievement.CraftedFirstAxe, Achievement.ChoppedFirstTree, Achievement.Collect100Wood],
+    hand: []
+}

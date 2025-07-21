@@ -8,7 +8,6 @@ class GameLoopPublisher {
     }
 
     public publish(): void {
-        console.log("Game loop tick published");
         this.subscribers.forEach(callback => callback());
     }
 }

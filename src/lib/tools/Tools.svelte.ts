@@ -3,8 +3,8 @@ import type { Resource } from "$lib/types/resources";
 import { ToolCrafter } from "./ToolCrafter.";
 import { Resources } from "$lib/resources/Resources.svelte";
 import { resourceDurability } from "$lib/resources/ResourceProperties";
-
-
+import { ChatLog } from "$lib/chat-log/ChatLog.svelte";
+import { ChatLogEvent } from "$lib/types/chatlogs";
 
 class ToolCollection {
     #toolList: Tool[] = $state([]);
@@ -39,6 +39,7 @@ class ToolCollection {
 
         if (foundTool.durability <= 10) {
             this.#toolList = this.#toolList.filter(tool => tool.type !== toolType);
+            ChatLog.addMessage(ChatLogEvent.ToolBroken, `${foundTool.material} ${toolType}`);
             return;
         }
 

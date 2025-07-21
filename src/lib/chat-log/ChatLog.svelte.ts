@@ -1,15 +1,19 @@
-import type { ChatLogEvent } from "$lib/types/chatlogs";
+import type { ChatLogEvent, ChatLogMessage, ChatLogMessageWithIndex } from "$lib/types/chatlogs";
 import { generateChatLogMessage } from "./ChatLogObjectFactory";
 
 class ChatLogStorage {
-    #messages: string[] = $state([]);
+    #messages: ChatLogMessage[] = $state([]);
 
     addMessage(event: ChatLogEvent, replacement = ''): void {
-        this.#messages.push(generateChatLogMessage(event, replacement));
+        const message: ChatLogMessage = {
+            message: generateChatLogMessage(event, replacement),
+            event
+        }
+        this.#messages.push(message);
     }
 
-    getMessages(): { message: string; index: number }[] {
-        return this.#messages.map((message, index) => ({ message, index }));
+    getMessages(): ChatLogMessageWithIndex[] {
+        return this.#messages.map((message, index) => ({ ...message, index }));
     }
 }
 

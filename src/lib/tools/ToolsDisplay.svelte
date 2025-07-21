@@ -1,7 +1,8 @@
 <script lang="ts">
+	import { Achievement } from '$lib/types/achievements';
 	import ToolCrafterButton from './ToolCrafterButton.svelte';
 	import ToolDisplay from './ToolDisplay.svelte';
-	import { possibleTools } from './ToolProperties';
+	import { achievementsNeededToUnlock, possibleTools } from './ToolProperties';
 	import { Tools } from './Tools.svelte';
 </script>
 
@@ -10,7 +11,11 @@
 		{#if Tools.getTool(possibleTool)}
 			<ToolDisplay tool={Tools.getTool(possibleTool)!} />
 		{:else}
-			<ToolCrafterButton toolName={possibleTool} color="is-success" />
+			<ToolCrafterButton
+				toolName={possibleTool}
+				color="is-success"
+				achievementNeededs={achievementsNeededToUnlock[possibleTool]}
+			/>
 		{/if}
 	{/each}
 </div>
